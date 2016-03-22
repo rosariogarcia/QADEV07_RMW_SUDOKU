@@ -12,6 +12,7 @@ public class DifficultLevel {
 		this.bootomLimit = bootomLimit;
 	}
 	
+	hgdfhgsdhfshdg
 	
 	
 }
