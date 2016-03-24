@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class DifficultLevelTest {
+public class TimerTest {
 
 	@Test
 	public void test() {
