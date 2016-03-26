@@ -1,6 +1,3 @@
-package xml;
-
-
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -29,7 +26,7 @@ public class GameConfiguration {
 	
 	  /**
      * Builder class game Configuration
-     * @param numeroItems El parámetro numeroItems define el número de elementos que va a tener la serie aleatoria
+     * @param numeroItems El parÃ¡metro numeroItems define el nÃºmero de elementos que va a tener la serie aleatoria
      */
 	
 	
