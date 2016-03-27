@@ -1,6 +1,8 @@
 package game;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.util.StringTokenizer;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,7 +22,7 @@ public class FileCsv implements File {
 	     /**
 	     * @param array
 	     * @throws IOException 
-	     * Read a array and write on a file
+	     * Read a array and write on a file Csv
 	     */
 	@Override
 	public void writeFileArray(String[][] array) throws IOException {
@@ -53,7 +55,7 @@ public class FileCsv implements File {
              /**
 	     * @param file
 	     * @throws IOException 
-	     * Read a file and put on a array
+	     * Read a file Csv and put on a array
 	     */
 
 	@Override
@@ -71,7 +73,7 @@ public class FileCsv implements File {
 			StringTokenizer st = new StringTokenizer(line, "\t");
 				while (st.hasMoreTokens()) {
 				data[col][row] = String.valueOf(st.nextToken());
-				System.out.print(data[col][row] + "\n");
+				
 				col++;
 
 				}
