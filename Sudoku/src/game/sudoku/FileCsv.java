@@ -69,7 +69,7 @@ public class FileCsv implements File {
 			BufferedReader stdin = new BufferedReader(fileReader);
 			
 			String line = null;
-			while ((line = reader.readLine()) != null && row < data.length) {
+			while ((line = stdin.readLine()) != null && row < data.length) {
 			StringTokenizer st = new StringTokenizer(line, "\t");
 				while (st.hasMoreTokens()) {
 				data[col][row] = String.valueOf(st.nextToken());
