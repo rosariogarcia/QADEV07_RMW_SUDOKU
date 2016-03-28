@@ -67,7 +67,7 @@ public class FileTxt implements File {
 			BufferedReader stdin = new BufferedReader(fileReader);
 			
 			String line = null;
-			while ((line = reader.readLine()) != null && row < data.length) {
+			while ((line = stdin.readLine()) != null && row < data.length) {
 			StringTokenizer st = new StringTokenizer(line, "\t");
 				while (st.hasMoreTokens()) {
 				data[col][row] = String.valueOf(st.nextToken());
@@ -79,7 +79,9 @@ public class FileTxt implements File {
 			col = 0;
 			row++;
 			}
-
+			} catch (Exception e) {
+			Logger.getLogger(FileTxt.class.getName()).log(Level.SEVERE, null, e);
+		}
 	}
 
 }
