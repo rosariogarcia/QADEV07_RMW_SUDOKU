@@ -1,4 +1,4 @@
-
+package game.sudouku;
 
 public class Backtracking implements AlgorithmSolver {
 	private int[][] grid;
