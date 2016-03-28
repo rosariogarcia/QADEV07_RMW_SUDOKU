@@ -34,7 +34,7 @@ public class FileTxt implements File {
 				String content = " ";
 				
 				for (COLC = 0; COLC < 9; COLC++) {
-					content += array[ROWC][COLC] + " , ";
+					content += array[ROWC][COLC] + " ";
 
 				}
 				
