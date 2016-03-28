@@ -1,32 +1,52 @@
-package game.sudoku;
+/**
+ * @author Charito,
+ */
+package game.sudouku;
 
-public enum Level {
-	/**
-	 * Enum class for difficulty levels. 
-	 * 
-	 * Its bottom and top limits set a range.
-	 * 
-	 */
-    EASY(75,70),
-    MEDIUM(55,70),
-    HARD(20,30),
-    CUSTOM(40,50);
+import java.util.Random;
 
-	private final int topLimit;
-	private final int bottomLimit;
+public class Level {
 
-    Level(int topLimit, int bottomLimit) {
-        this.topLimit = topLimit;
-        this.bottomLimit = bottomLimit;
-    }
+	private String name;
+	private int topLimit;
+	private int bottomLimit;
+	
+	
+		
+	public Level(String name, int topLimit, int bottomLimit){
+		this.setName(name);
+		this.topLimit = topLimit;
+		this.bottomLimit = bottomLimit;
+	}
+	
+	public String getName() {
+		return name;
+	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public int getTopLimit() {
 		return topLimit;
+	}
+
+	public void setTopLimit(int topLimit) {
+		this.topLimit = topLimit;
 	}
 
 	public int getBottomLimit() {
 		return bottomLimit;
 	}
 
-
+	public void setBottomLimit(int bottomLimit) {
+		this.bottomLimit = bottomLimit;
+	}
+	
+	/**
+     	* @return random number from limits from bottom to top number of blank cells for given difficulty level.
+     	*/
+	public int getBlankCellsNumber(){
+		return new Random().nextInt((topLimit - bottomLimit) + 1) + bottomLimit;
+	}
 }
