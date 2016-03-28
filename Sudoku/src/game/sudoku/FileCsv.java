@@ -48,7 +48,7 @@ public class FileCsv implements File {
 			fileWriter.close();
 
 		} catch (Exception e) {
-			Logger.getLogger(WriteFile.class.getName()).log(Level.SEVERE, null, e);
+			Logger.getLogger(FileCsv.class.getName()).log(Level.SEVERE, null, e);
 		}
 		
 	}
