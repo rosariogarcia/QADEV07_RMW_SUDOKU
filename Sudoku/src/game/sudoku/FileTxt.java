@@ -47,7 +47,7 @@ public class FileTxt implements File {
 			fileWriter.close();
 
 		} catch (Exception e) {
-			Logger.getLogger(WriteFile.class.getName()).log(Level.SEVERE, null, e);
+			Logger.getLogger(FileTxt.class.getName()).log(Level.SEVERE, null, e);
 		}
 		
 	}
