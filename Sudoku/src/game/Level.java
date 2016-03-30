@@ -1,7 +1,7 @@
 /**
  * @author Charito,
  */
-package game.sudouku;
+package game;
 
 import java.util.Random;
 

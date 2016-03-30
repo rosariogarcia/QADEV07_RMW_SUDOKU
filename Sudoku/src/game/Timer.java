@@ -1,4 +1,4 @@
-package game.sudouku;
+package game;
 
 public class Timer {
 	
