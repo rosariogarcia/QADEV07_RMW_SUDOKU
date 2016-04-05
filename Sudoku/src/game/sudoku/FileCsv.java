@@ -1,49 +1,31 @@
 package game;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.util.StringTokenizer;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class FileCsv implements File {
-	     
-	int ROWC = 0;
-	static int COLC = 0;
-	
-	static String line = "";
-	final static String COMA_LIMITER = ",";
-	final static String NEW_LINE_SEPARATOR = "\n";
-	final static String character = "";
-	
-	     /**
-	     * @param array
-	     * @throws IOException 
-	     * Read a array and write on a file Csv
-	     */
+	int row = 0;
+	int col = 0;
+	/**
+	 * This method write in a file csv the value of a array that contain string data
+	 * and save it in a place specific from the PC
+	 * @param arraySudoku	 the arraySudoku contain the data to export to the file                     
+	 * @param pathFile        the pathFile contain the root and the name file	 
+	 */
+
 	@Override
-	public void writeFileArray(String[][] array) throws IOException {
+	public void writeFileArray(String[][] arraySudoku,String pathFile)  {
 		// TODO Auto-generated method stub
 		
 		try {
-			FileWriter fileWriter = new FileWriter("src\\data\\array2.csv");
+			FileWriter fileWriter = new FileWriter(pathFile);
 
-			for (ROWC = 0; ROWC < array.length; ROWC++) {
-				String content = " ";
-				
-				for (COLC = 0; COLC < 9; COLC++) {
-					content += array[ROWC][COLC] + ",";
-
-				}
-				
-				fileWriter.write(NEW_LINE_SEPARATOR);
-				fileWriter.write(String.valueOf(content));
-				fileWriter.write(COMA_LIMITER);
-
-			}
+			ContentFile(arraySudoku, fileWriter);
 			fileWriter.flush();
 			fileWriter.close();
 
@@ -52,41 +34,70 @@ public class FileCsv implements File {
 		}
 		
 	}
-             /**
-	     * @param file
-	     * @throws IOException 
-	     * Read a file Csv and put on a array
-	     */
-
+	/**
+	 * This method read from the file and put the data in a array of integer value
+	 *                      
+	 * @param file        the file to allow to read the data from the file	 
+	 */
 	@Override
-	public void readFileArray(String file) throws IOException {
+	public void readFileArray(String file)  {
 		// TODO Auto-generated method stub
-		String[][] data = new String[9][9];
-		int row = 0;
-		int col = 0;
+		int[][] dataSudoku = new int[9][9];
+		
 		try {
 			FileReader fileReader = new FileReader(file);
 			BufferedReader stdin = new BufferedReader(fileReader);
-			
-			String line = null;
-			while ((line = stdin.readLine()) != null && row < data.length) {
-			StringTokenizer st = new StringTokenizer(line, "\t");
-				while (st.hasMoreTokens()) {
-				data[col][row] = String.valueOf(st.nextToken());
-				
-				col++;
-
-				}
-
-			col = 0;
-			row++;
-			}
+					
+			PutOnArraySudoku(dataSudoku, stdin);
 			fileReader.close();
-
 		} catch (Exception e) {
 			Logger.getLogger(FileCsv.class.getName()).log(Level.SEVERE, null, e);
 		}
 		
 	}
+	/**
+	 * This method run every line of the file in put in a specific place in a array 
+	 * @throws IOException  If an input or output 
+	 *                      exception occurred
+	 * @param dataSudoku    the dataSudoku to display a array of string of 9X9
+	 * @param stdin  	    the stdin to allow to read of the file txt
+	 */
+	private void PutOnArraySudoku(int[][] dataSudoku, BufferedReader stdin)
+			throws IOException {
+		String line = null;
+		while ((line = stdin.readLine()) != null && row < dataSudoku.length) {
+		StringTokenizer st = new StringTokenizer(line, "\t");
+			while (st.hasMoreTokens()) {
+			dataSudoku[col][row] = Integer.parseInt(st.nextToken());
+			col++;
+			}
+		col = 0;
+		row++;
+		}
+	}
+	/**
+	 * This method runs every segment of the array to put in a segment from the file
+	 * @throws IOException  If an input or output 
+	 *                      exception occurred
+	 * @param arraySudoku    the arraySudoku to contain a array of string of 9X9
+	 * @param fileWriter 	the fileWriter to allow to write in the file txt
+	 */
+	private void ContentFile(String[][] arraySudoku, FileWriter fileWriter)
+			throws IOException {
+		for (int row = 0 ; row < arraySudoku.length; row++) {
+			String content = " ";
+			
+			for (int col=0; col < 9; col++) {
+				content += arraySudoku[row][col] + ",";
+			}
+							
+			fileWriter.write(new_line_separator);
+			fileWriter.write(String.valueOf(content));
+			fileWriter.write(coma_limiter);
+
+		}
+	}
+
 	
 }
+
