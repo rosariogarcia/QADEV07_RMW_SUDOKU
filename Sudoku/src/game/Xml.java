@@ -52,17 +52,4 @@ public class Xml {
             return false;
         }
     }
-    
-    public static void main(String args[]){
-		 Xml xml= new Xml();
-		 List<Level>leves = new ArrayList<>();
-		 leves.add(new Level("easy",2,1));
-		 leves.add(new Level("hard",78,18));
-		 GameConfiguration game=xml.readXml();
-		 game.setPathOutput("C:\\");
-		 game.setLevel(leves);
-		 System.out.println(xml.updateXml(game));
-	}
-    
-
 }
