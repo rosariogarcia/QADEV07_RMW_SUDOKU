@@ -4,8 +4,7 @@ import java.util.Random;
 
 /**
  * 
- * @author RosarioGarcia
- * This class use to create a level of the game
+ * @author RosarioGarcia This class use to create a level of the game
  * 
  */
 public class LevelSudoku {
@@ -13,40 +12,66 @@ public class LevelSudoku {
 	private String name;
 	private int topLimit;
 	private int bottomLimit;
-	
-	
+
+	public LevelSudoku(String name) {
+		this.name = name;
+		switch (this.name){
+			case "Easy":
+				this.topLimit = 75;
+				this.bottomLimit = 70;
+				break;
+			case "Medium":
+				this.topLimit = 70;
+				this.bottomLimit = 55;
+				break;
+			case "Hard":
+				this.topLimit = 30;
+				this.bottomLimit = 20;
+				break;
+			default :
+				break;
+		}
+	}
+
 	/**
-	 * LevelSudoku Constructor,
-	 * Initialize a level with name, and bottom and top limits
-	 *  
-	 * @param name : level's name
-	 * @param topLimit : level's top limit
-	 * @param bottomLimit : level's bottom limit
+	 * LevelSudoku Constructor, Initialize a level with name, and bottom and top
+	 * limits
+	 * 
+	 * @param name
+	 *            : level's name
+	 * @param topLimit
+	 *            : level's top limit
+	 * @param bottomLimit
+	 *            : level's bottom limit
 	 */
-	public LevelSudoku(String name, int topLimit, int bottomLimit){
+	public LevelSudoku(String name, int topLimit, int bottomLimit) {
 		this.setName(name);
 		this.topLimit = topLimit;
 		this.bottomLimit = bottomLimit;
 	}
-	
+
 	/**
-	 * getName(): This method return level's name 
+	 * getName(): This method return level's name
+	 * 
 	 * @return name : level's name
 	 */
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * setName(): This method set the level name value
-	 * @param name : level's name
+	 * 
+	 * @param name
+	 *            : level's name
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	/**
 	 * getTopLimit(): This method return level's top limit
+	 * 
 	 * @return topLimit : level's top limit
 	 */
 	public int getTopLimit() {
@@ -55,7 +80,9 @@ public class LevelSudoku {
 
 	/**
 	 * setTopLimit(): This method set the top limit value
-	 * @param topLimit : level's top limit
+	 * 
+	 * @param topLimit
+	 *            : level's top limit
 	 */
 	public void setTopLimit(int topLimit) {
 		this.topLimit = topLimit;
@@ -63,6 +90,7 @@ public class LevelSudoku {
 
 	/**
 	 * getBottomLimit(): This method return level's bottom limit
+	 * 
 	 * @return bottomLimit :level's bottom limit
 	 */
 	public int getBottomLimit() {
@@ -71,17 +99,19 @@ public class LevelSudoku {
 
 	/**
 	 * setBottomLimit(): This method set the bottom limit value
-	 * @param bottomLimit :level's bottom limit
+	 * 
+	 * @param bottomLimit
+	 *            :level's bottom limit
 	 */
 	public void setBottomLimit(int bottomLimit) {
 		this.bottomLimit = bottomLimit;
 	}
 
 	/**
-	 * @return random number from limits from bottom to top number 
-	 * of blank cells for given difficulty level.
+	 * @return random number from limits from bottom to top number of blank
+	 *         cells for given difficulty level.
 	 */
-	public int getBlankCellsNumber(){
+	public int getBlankCellsNumber() {
 		return new Random().nextInt((topLimit - bottomLimit) + 1) + bottomLimit;
 	}
 }
