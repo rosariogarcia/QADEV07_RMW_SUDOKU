@@ -1,14 +1,11 @@
 package game;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class WriteFileNiceTxt implements File {
+public class WriteFileNiceTxt extends File {
 	/**
 	 * This method write in a file txt the value of a array that contain string
 	 * data and save it in a place specific from the PC
@@ -81,10 +78,5 @@ public class WriteFileNiceTxt implements File {
 			content += arraySudoku[row][col] + " ";
 		}
 		return content;
-	}
-
-	@Override
-	public void readFileArray(String file) throws IOException {
-
 	}
 }
