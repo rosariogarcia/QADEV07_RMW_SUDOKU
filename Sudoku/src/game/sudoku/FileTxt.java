@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class FileTxt implements File {
+public class FileTxt extends File {
 	int row = 0;
 	int col = 0;
 
@@ -16,10 +16,8 @@ public class FileTxt implements File {
 	 * This method write in a file csv the value of a array that contain string
 	 * data and save it in a place specific from the PC
 	 * 
-	 * @param arraySudoku
-	 *            the arraySudoku contain the data to export to the file
-	 * @param pathFile
-	 *            the pathFile contain the root and the name file
+	 * @param arraySudoku	the arraySudoku contain the data to export to the file
+	 * @param pathFile	the pathFile contain the root and the name file
 	 */
 	@Override
 	public void writeFileArray(String[][] arraySudoku, String pathFile) {
@@ -38,8 +36,7 @@ public class FileTxt implements File {
 	 * This method read from the file and put the data in a array of integer
 	 * value
 	 * 
-	 * @param file
-	 *            the file to allow to read the data from the file
+	 * @param file	the file to allow to read the data from the file
 	 */
 	@Override
 	public void readFileArray(String file) {
@@ -59,12 +56,9 @@ public class FileTxt implements File {
 	 * This method run every line of the file in put in a specific place in a
 	 * array
 	 * 
-	 * @throws IOException
-	 *             If an input or output exception occurred
-	 * @param data
-	 *            the data to display a array of int value of 9X9
-	 * @param stdin
-	 *            the stdin to allow to read of the file txt
+	 * @throws IOException	If an input or output exception occurred
+	 * @param data		the data to display a array of int value of 9X9
+	 * @param stdin		the stdin to allow to read of the file txt
 	 */
 	private void putOnArraySudoku(int[][] dataSudoku, BufferedReader stdin)
 			throws IOException {
@@ -84,12 +78,9 @@ public class FileTxt implements File {
 	 * This method runs every segment of the array to put in a segment from the
 	 * file
 	 * 
-	 * @throws IOException
-	 *             If an input or output exception occurred
-	 * @param arraySudoku
-	 *            the arraySudoku to contain a array of string of 9X9
-	 * @param fileWriter
-	 *            the fileWriter to allow to write in the file txt
+	 * @throws IOException	If an input or output exception occurred
+	 * @param arraySudoku	the arraySudoku to contain a array of string of 9X9
+	 * @param fileWriter	the fileWriter to allow to write in the file txt
 	 */
 	private void getContentFile(String[][] arraySudoku, FileWriter fileWriter)
 			throws IOException {
