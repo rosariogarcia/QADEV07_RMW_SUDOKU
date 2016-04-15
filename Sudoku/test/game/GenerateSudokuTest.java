@@ -12,20 +12,27 @@ import org.junit.Test;
  *
  */
 public class GenerateSudokuTest {
+	
 
 	@Test
-	public void test() {
+	public void aSudokuGameShouldBeCreateWithDifficultLevelDefined() {
 
-		GenerateSudoku sudoku = new GenerateSudoku();
+		LevelSudoku level = new LevelSudoku("Easy");
+		GenerateSudoku sudoku = new GenerateSudoku(level);
 		sudoku.generate();
 
-		int [][] grid = sudoku.matrix;
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				System.out.print(grid[i][j] + "  ");
-			}
-			System.out.println();
-		}
+		assertTrue(sudoku instanceof GenerateSudoku);
 	}
 
+	@Test
+	public void aSudokuGameShouldBeGeneratedByLevel() {
+
+		LevelSudoku level = new LevelSudoku("Easy");
+		GenerateSudoku sudoku = new GenerateSudoku(level);
+		sudoku.generate();
+
+		assertTrue(sudoku.generate());
+	}
+	
+	
 }

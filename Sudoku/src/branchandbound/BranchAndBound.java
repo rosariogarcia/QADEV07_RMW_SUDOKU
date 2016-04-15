@@ -11,103 +11,119 @@ import algorithm.AlgorithmSolver;
  */
 public class BranchAndBound implements AlgorithmSolver {
 
-	public static int SIZE = 9;
-	
+	public static int SIZESUDOKU = 9;
+
 	/*
 	 * @see algorithm.Algorithmsolutionver#solutionver(int[][])
 	 */
 	@Override
-	public  int [][] solver(int solution[][]) {
-		Queue live = new Queue();// Queue of Node's objects 
-		Node X = new Node();
-		Node Y; //auxiliar node
-		
-		boolean inicial[][] = new boolean[SIZE][SIZE];
-		
-		// live := emptyQueue(); //Preparamos la raíz del árbol de exploración
-		X.row = 0;
-		X.column = 0;
-		X.solution = solution;
-		live.askAgain(X);// askAgain (live, X); => posiblemente sea agregar X a los live
-		
-		refillMatrixWithBooleanInput(solution, inicial); 
+	public int[][] solver(int sudoku[][]) {
+		Queue possibleSolutionsQueue = new Queue();
+		Node possibleSolution = new Node();
+		Node auxiliarSolution;
 
-		while (live.emptyQueue()== false) {
-			X = live.atend();// X := atend(live);<== sacamos un elemnto de la cola
-			if (inicial[X.row][X.column]) {// se comprueba si el elemento es false, si no hay elemento en la matriz
-				for (int k = 0; k < SIZE; k++) {
-					X.solution[X.row][X.column] = k + 1;
-					if (workable(X.row, X.column, X.solution)) {
-						int casos = Utils.boolToInt(X.row == SIZE - 1 && X.column == SIZE - 1) * 1 + 
-								Utils.boolToInt(X.row < SIZE - 1 && X.column == SIZE - 1) * 2 + 
-								Utils.boolToInt(X.row <= SIZE - 1 && X.column < SIZE - 1) * 3;
-						switch (casos) {
-						case 1:
-							return X.solution;
-						case 2:
-							Y = new Node();
-							Y.solution = X.solution;
-							Y.row = X.row + 1;
-							Y.column = 0;
-							live.askAgain(Y);// pedir_vez(live, Y);
-							break;
-						case 3:
-							Y = new Node();
-							Y.solution = X.solution;
-							Y.row = X.row;
-							Y.column = X.column + 1;
-							if (Y.column == 9) {
-								int r = 0;
-							}
-							live.askAgain(Y);// askAgain(live, Y);
-							break;
+		boolean initialSudokuBoolean[][] = new boolean[SIZESUDOKU][SIZESUDOKU];
+		possibleSolution.row = 0;
+		possibleSolution.column = 0;
+		possibleSolution.solution = sudoku;
+		possibleSolutionsQueue.askAgain(possibleSolution);
+		refillSudokuPuzzleWithBooleanInput(sudoku, initialSudokuBoolean);
+
+		while (possibleSolutionsQueue.emptyQueue() == false) {
+			possibleSolution = possibleSolutionsQueue.atend();
+			int[][] verifyMatrix = verifyPossibleSolution(possibleSolutionsQueue, possibleSolution,
+					initialSudokuBoolean);
+			if (verifyMatrix != null)
+				return verifyMatrix;
+		}
+		return null;
+	}
+
+	private int[][] verifyPossibleSolution(Queue possibleSolutionsQueue, Node possibleSolution,
+			boolean[][] initialSudokuBoolean) {
+		Node auxiliarSolution;
+		if (initialSudokuBoolean[possibleSolution.row][possibleSolution.column]) {
+			for (int k = 0; k < SIZESUDOKU; k++) {
+				possibleSolution.solution[possibleSolution.row][possibleSolution.column] = k + 1;
+				if (workable(possibleSolution.row, possibleSolution.column, possibleSolution.solution)) {
+					int cases = Utils.boolToInt(
+							possibleSolution.row == SIZESUDOKU - 1 && possibleSolution.column == SIZESUDOKU - 1) * 1
+							+ Utils.boolToInt(
+									possibleSolution.row < SIZESUDOKU - 1 && possibleSolution.column == SIZESUDOKU - 1)
+									* 2
+							+ Utils.boolToInt(
+									possibleSolution.row <= SIZESUDOKU - 1 && possibleSolution.column < SIZESUDOKU - 1)
+									* 3;
+					switch (cases) {
+					case 1:
+						return possibleSolution.solution;
+					case 2:
+						auxiliarSolution = new Node();
+						auxiliarSolution.solution = possibleSolution.solution;
+						auxiliarSolution.row = possibleSolution.row + 1;
+						auxiliarSolution.column = 0;
+						possibleSolutionsQueue.askAgain(auxiliarSolution);
+						break;
+					case 3:
+						auxiliarSolution = new Node();
+						auxiliarSolution.solution = possibleSolution.solution;
+						auxiliarSolution.row = possibleSolution.row;
+						auxiliarSolution.column = possibleSolution.column + 1;
+						if (auxiliarSolution.column == 9) {
+							int r = 0;
 						}
+						possibleSolutionsQueue.askAgain(auxiliarSolution);
+						break;
 					}
 				}
-			} else {// ocurre cuando la pocicion en la que se encuentra tiene un valor diferente de 0 inicial[X.row, X.column] = Cierto
-				int casos = Utils.boolToInt(X.row == SIZE - 1 && X.column == SIZE - 1) * 1 + 
-						Utils.boolToInt(X.row < SIZE - 1 && X.column == SIZE - 1) * 2 + 
-						Utils.boolToInt(X.row <= SIZE - 1 && X.column < SIZE - 1) * 3;
-				switch (casos) {
-				case 1:
-					return X.solution;
-				case 2:
-					Y = new Node();
-					Y.solution = X.solution;
-					Y.row = X.row + 1;
-					Y.column = 0;
-					live.askAgain(Y);// askAgain(live, Y);
-					break;
-				case 3:
-					Y = new Node();
-					Y.solution = X.solution;
-					Y.row = X.row;
-					Y.column = X.column + 1;
-					live.askAgain(Y);// askAgain(live, Y);
-					break;
-				}
+			}
+		} else {
+			int casos = Utils
+					.boolToInt(possibleSolution.row == SIZESUDOKU - 1 && possibleSolution.column == SIZESUDOKU - 1) * 1
+					+ Utils.boolToInt(
+							possibleSolution.row < SIZESUDOKU - 1 && possibleSolution.column == SIZESUDOKU - 1) * 2
+					+ Utils.boolToInt(
+							possibleSolution.row <= SIZESUDOKU - 1 && possibleSolution.column < SIZESUDOKU - 1) * 3;
+			switch (casos) {
+			case 1:
+				return possibleSolution.solution;
+			case 2:
+				auxiliarSolution = new Node();
+				auxiliarSolution.solution = possibleSolution.solution;
+				auxiliarSolution.row = possibleSolution.row + 1;
+				auxiliarSolution.column = 0;
+				possibleSolutionsQueue.askAgain(auxiliarSolution);
+				break;
+			case 3:
+				auxiliarSolution = new Node();
+				auxiliarSolution.solution = possibleSolution.solution;
+				auxiliarSolution.row = possibleSolution.row;
+				auxiliarSolution.column = possibleSolution.column + 1;
+				possibleSolutionsQueue.askAgain(auxiliarSolution);
+				break;
 			}
 		}
 		return null;
 	}
 
-
 	/**
 	 * This method refill the matrix with true when no exist the element value
+	 * 
 	 * @param solution
 	 * @param inicial
 	 */
-	private void refillMatrixWithBooleanInput(int[][] solution, boolean[][] inicial) {
-		for (int i = 0; i < SIZE; i++) {
-			for (int j = 0; j < SIZE; j++) {
+	private void refillSudokuPuzzleWithBooleanInput(int[][] solution, boolean[][] inicial) {
+		for (int i = 0; i < SIZESUDOKU; i++) {
+			for (int j = 0; j < SIZESUDOKU; j++) {
 				if (solution[i][j] != 0) {
-					inicial[i][j] = false; // cuando tiene un elemento
+					inicial[i][j] = false;
 				} else {
-					inicial[i][j] = true;// cuando es vacio
+					inicial[i][j] = true;
 				}
 			}
 		}
 	}
+
 	private boolean workable(int i, int j, int solution[][]) {
 		boolean valido;// el valor que vamos a retornar
 		int k;
@@ -115,14 +131,14 @@ public class BranchAndBound implements AlgorithmSolver {
 		valido = true;
 		k = 0;
 		// verificamos en cada column
-		while (k < SIZE && valido) {
+		while (k < SIZESUDOKU && valido) {
 			if (solution[i][j] == solution[i][k] && k != j) {
 				valido = false;
 			}
 			k++;
 		}
 		k = 0;// verificamos en cada row
-		while (k < SIZE && valido) {
+		while (k < SIZESUDOKU && valido) {
 			// System.out.println("2");
 			if (solution[i][j] == solution[k][j] && k != i) {
 				valido = false;
