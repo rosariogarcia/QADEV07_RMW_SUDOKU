@@ -42,6 +42,25 @@ public class ImputValidate {
             return false;
         }
     }
+    
+    /**
+     * Verified if String is a number
+     * @param stringRead for convert a array
+     * @return return true if convert the String to a number
+     */
+    public static boolean isNumericStingLog(String stringRead) {
+        try {
+            for (char number : stringRead.toCharArray()) {
+                Integer.parseInt(number + "");
+            }
+
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+
 
     /**
      *  Verified that contain 81 characters. 
