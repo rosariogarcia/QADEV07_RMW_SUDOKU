@@ -4,6 +4,7 @@ import java.util.Random;
 import branchandbound.BranchAndBound;
 
 /**
+ * This class use to generate a new Sudoku Game to will be solve
  * 
  * @author rosariogarcia
  *
@@ -12,27 +13,25 @@ public class GenerateSudoku {
 
 	public int[][] sudokuPuzzle;
 	private LevelSudoku level;
+	private static final int SIZESUDOKU = 9;
 
 	/**
 	 * Construct initialize the difficult level value.
-	 * 
-	 * @param level,
-	 *            its is the difficult level of the Sudoku game.
+	 * @param level, it is the difficult level of the Sudoku game.
 	 */
 	public GenerateSudoku(LevelSudoku level) {
 		this.level = level;
 	}
 
 	/**
-	 * This method generate a Sudoku game, return the Sudoku game if is
-	 * generated, return null when the Sudoku game not is generated.
+	 * This method generate a Sudoku game, return true when the Sudoku game is
+	 * generated return false when the Sudoku game not is generated.
 	 */
 	public boolean generate() {
-		int[][] sudokuGrid = new int[9][9];
+		int[][] sudokuGrid = new int[SIZESUDOKU][SIZESUDOKU];
 		boolean flag_solved = false;
 		for (int attemps = 0; attemps < 30; attemps++) {
-
-			sudokuGrid = randomMatriz();
+			sudokuGrid = randomMatrix();
 			BranchAndBound bb = new BranchAndBound();
 			this.sudokuPuzzle = bb.solver(sudokuGrid);
 			if (!(this.sudokuPuzzle == null)) {
@@ -42,16 +41,20 @@ public class GenerateSudoku {
 		}
 		if (flag_solved)
 			this.removeElementsByLevel();
-		
+
 		return flag_solved;
 	}
 
-	private int[][] randomMatriz() {
-		int[][] sudokuGrid = new int[9][9];
+	/**
+	 * Sudoku Game with 30 random values initials
+	 * @return sudokuGrid, this grid contain 30 numbers random generated to solver
+	 */
+	private int[][] randomMatrix() {
+		int[][] sudokuGrid = new int[SIZESUDOKU][SIZESUDOKU];
 		for (int i = 1; i <= 30; i++) {
-			int rowPosition = new Random().nextInt((8 - 0) + 1) + 0;
-			int columnPosition = new Random().nextInt((8 - 0) + 1) + 0;
-			int sudokuNumber = new Random().nextInt((9 - 1) + 1) + 1;
+			int rowPosition = new Random().nextInt(SIZESUDOKU);
+			int columnPosition = new Random().nextInt(SIZESUDOKU);
+			int sudokuNumber = new Random().nextInt(SIZESUDOKU) + 1;
 			if (sudokuGrid[rowPosition][columnPosition] == 0
 					&& noConflict(sudokuGrid, rowPosition, columnPosition, sudokuNumber)) {
 				sudokuGrid[rowPosition][columnPosition] = sudokuNumber;
@@ -67,8 +70,8 @@ public class GenerateSudoku {
 	private void removeElementsByLevel() {
 		int blankCells = level.getBlankCellsNumber();
 		for (int i = 1; i <= blankCells; i++) {
-			int rowPosition = new Random().nextInt((8 - 0) + 1) + 0;
-			int columnPosition = new Random().nextInt((8 - 0) + 1) + 0;
+			int rowPosition = new Random().nextInt(SIZESUDOKU);
+			int columnPosition = new Random().nextInt(SIZESUDOKU);
 			this.sudokuPuzzle[rowPosition][columnPosition] = 0;
 		}
 	}
@@ -88,26 +91,22 @@ public class GenerateSudoku {
 	/**
 	 * This method verify that the Number no repeat in the Row, column and box.
 	 * 
-	 * @param possibleSolution,
-	 *            its contain the posible solution of sudoku game
-	 * @param row,
-	 *            its the row of number to verify
-	 * @param colunn,
-	 *            its the column of number to verify
-	 * @param number,
-	 *            its the number value of the row and column positions. @return,
-	 *            this method return true when there isn't conflict, and false
-	 *            when there is.
+	 * @param possibleSolution, it contain the posible solution of sudoku game
+	 * @param row, it is the row of number to verify
+	 * @param colunn, it is the column of number to verify
+	 * @param number, it is the number value of the row and column positions.
+	 * @return, this method return true when there isn't conflict, and false when there is.
+	 *
 	 */
-	public static boolean noConflict(int[][] possibleSolution, int row, int colunn, int number) {
+	public static boolean noConflict(int[][] possibleSolution, int row, int column, int number) {
 
 		for (int i = 0; i < 9; i++) {
-			if (possibleSolution[row][i] == number || possibleSolution[i][colunn] == number)
+			if (possibleSolution[row][i] == number || possibleSolution[i][column] == number)
 				return false;
 		}
 
 		int gridRow = row - (row % 3);
-		int gridColumn = colunn - (colunn % 3);
+		int gridColumn = column - (column % 3);
 		for (int p = gridRow; p < gridRow + 3; p++) {
 			for (int q = gridColumn; q < gridColumn + 3; q++) {
 				if (possibleSolution[p][q] == number)
