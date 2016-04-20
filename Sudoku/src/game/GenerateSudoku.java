@@ -5,7 +5,6 @@ import branchandbound.BranchAndBound;
 
 /**
  * This class use to generate a new Sudoku Game to will be solve
- * 
  * @author rosariogarcia
  *
  */
@@ -16,7 +15,7 @@ public class GenerateSudoku {
 	private static final int SIZESUDOKU = 9;
 
 	/**
-	 * Construct initialize the difficult level value.
+	 * Construct initialize the difficult level value. 
 	 * @param level, it is the difficult level of the Sudoku game.
 	 */
 	public GenerateSudoku(LevelSudoku level) {
@@ -30,7 +29,8 @@ public class GenerateSudoku {
 	public boolean generate() {
 		int[][] sudokuGrid = new int[SIZESUDOKU][SIZESUDOKU];
 		boolean flag_solved = false;
-		for (int attemps = 0; attemps < 30; attemps++) {
+		// for (int attemps = 0; attemps < 100; attemps++)
+		while (true) {
 			sudokuGrid = randomMatrix();
 			BranchAndBound bb = new BranchAndBound();
 			this.sudokuPuzzle = bb.solver(sudokuGrid);
@@ -41,7 +41,6 @@ public class GenerateSudoku {
 		}
 		if (flag_solved)
 			this.removeElementsByLevel();
-
 		return flag_solved;
 	}
 
@@ -91,11 +90,10 @@ public class GenerateSudoku {
 	/**
 	 * This method verify that the Number no repeat in the Row, column and box.
 	 * 
-	 * @param possibleSolution, it contain the posible solution of sudoku game
+	 * @param possibleSolution,it contain the posible solution of sudoku game
 	 * @param row, it is the row of number to verify
 	 * @param colunn, it is the column of number to verify
-	 * @param number, it is the number value of the row and column positions.
-	 * @return, this method return true when there isn't conflict, and false when there is.
+	 * @param number, it is the number value of the row and column positions. @return, this method return true when there isn't conflict, and false when there is.
 	 *
 	 */
 	public static boolean noConflict(int[][] possibleSolution, int row, int column, int number) {
@@ -104,7 +102,6 @@ public class GenerateSudoku {
 			if (possibleSolution[row][i] == number || possibleSolution[i][column] == number)
 				return false;
 		}
-
 		int gridRow = row - (row % 3);
 		int gridColumn = column - (column % 3);
 		for (int p = gridRow; p < gridRow + 3; p++) {
