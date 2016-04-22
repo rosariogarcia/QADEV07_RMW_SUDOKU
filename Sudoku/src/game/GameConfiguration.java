@@ -46,8 +46,8 @@ public class GameConfiguration {
         
     }
     
-    /*
-     * Returns the name Type the file.
+    /*Returns the name Type the file.
+     * 
      * @return name of a extension output
      */
     public String getExtensionOutput()
@@ -56,7 +56,7 @@ public class GameConfiguration {
     }
     
     /**
-     * Change the extension Output name.
+     * 
      * @param extensionOutput
      */
     public void setExtensionOutput(String extensionOutput) 
@@ -65,7 +65,7 @@ public class GameConfiguration {
     }
     
     /**
-     * Return the path out file.
+     * 
      * @return
      */
     public String getPathOutput()
@@ -74,7 +74,7 @@ public class GameConfiguration {
     }
     
     /**
-     * set path output 
+     * 
      * @param pathOutput
      */
     public void setPathOutput(String pathOutput)
@@ -83,7 +83,7 @@ public class GameConfiguration {
     }
     
     /**
-     * Return the name output
+     * 
      * @return
      */
     public String getNameOutput() 
@@ -92,7 +92,7 @@ public class GameConfiguration {
     }
     
     /**
-     * set the name output
+     * 
      * @param nameOutput
      */
     public void setNameOutput(String nameOutput) 
@@ -101,7 +101,7 @@ public class GameConfiguration {
     }
     
     /**
-     * Return the Type algorithm solver sudoku
+     * 
      * @return
      */
     public String getAlgorithmSolve()
@@ -119,7 +119,7 @@ public class GameConfiguration {
     }
     
     /**
-     * Retur the list  level
+     * 
      * @return
      */
     public List<Level> getLevel() {
@@ -127,18 +127,47 @@ public class GameConfiguration {
     }
     
     /**
-     * Set list level
+     * 
      * @param levels
      */
     public void setLevel(List<Level> levels) {
         this.levels = levels;
     }
 
- 
+    
+    
     @Override
     public String toString() {
-        return " GameConfiguration \n [extensionOutput=" + extensionOutput + ", pathOutput=" + pathOutput + ", \n nameOutput="
-                + nameOutput + ", algorithmSolve=" + algorithmSolve + ", levels=" + levels.toString() + "]";
+        return " Game Configuration \n [extension Output=" + extensionOutput + ", path Output=" + pathOutput + ", \n nameOutput="
+                + nameOutput + ", algorithm Solver=" + algorithmSolve + ", " + getDifficulty().toString() + "]";
+    }
+    
+    public void updateLevelCustom( int top, int low){
+        for (Level level : levels) {
+            if(level.getName().toLowerCase().equals("custom")){
+                level.setTop(top);
+                level.setLow(low);
+            }
+        }
+    }
+    
+    public void setDifficulty(String nameOtherLevel) {
+        for (Level level : levels) {
+            if (level.getName().toLowerCase().equals(nameOtherLevel)) {
+                level.setIdActual(1);
+            } else {
+                level.setIdActual(0);
+            }
+        }
+    }
+    
+    public  Level getDifficulty() {
+        for (Level level : levels) {
+            if (level.getIdActual() == 1) {
+                return level;
+            } 
+        }
+        return null;
     }
     
     
